@@ -1,0 +1,25 @@
+.inputContainer {
+  margin: 25px 500px 25px 15px;
+}
+
+.colorPickerContainer {
+  margin-left: 15px;
+}
+
+.submitButton{
+  margin: 20px 0 0 15px;
+}
+
+.quoteImageContainer{
+  margin: 20px 0 0 15px;
+}
+
+.footerContainer{
+
+  text-align: center;
+  padding: 15px;
+}
+
+.footerContainer a{
+  text-decoration: none;
+}
