@@ -67,7 +67,7 @@ const Form = () => {
 
     const colorPicked = hslToHex();
     axios
-      .post("http://localhost:5000", {
+      .post("/api", {
         quote,
         colorPicked,
       })

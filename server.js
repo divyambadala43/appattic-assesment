@@ -7,6 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+if (process.env.NODE_ENC == 'production') {
+
+  app.use('/', express.static("client/build"))
+  }
+
 app.get("/api", (req, res) => {
   res.send(req.body);
 });
@@ -29,9 +34,6 @@ app.post("/api", async (req, res) => {
   res.send(dataUri);
 });
 
-if (process.env.NODE_ENC == 'production') {
-  app.use(express.static("client/build"))
-}
 
 app.listen(port, () => {
   console.log(`Listening to http://localhost:${port}`);
