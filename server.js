@@ -7,10 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-if (process.env.NODE_ENC == 'production') {
+// if (process.env.NODE_ENC == 'production') {
 
   app.use('/', express.static("client/build"))
-  }
+//   }
 
 app.get("/api", (req, res) => {
   res.send(req.body);
