@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const textToImage = require("text-to-image");
 var convert = require('color-convert');
+const hexOpacity = require('hex-opacity');
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -25,6 +26,7 @@ app.post("/api", async (req, res) => {
   const alpha = color.alpha;
   const HSBtoHEX = convert.hsv.hex(hue, saturation, brightness, alpha)
   const HEXCode = `#${HSBtoHEX}`
+  const finalColor = hexOpacity.create(HEXCode, alpha)
 
   const dataUri = await textToImage.generate(quote, {
     debug: true,
@@ -37,7 +39,7 @@ app.post("/api", async (req, res) => {
     lineHeight: 30,
     margin: 5,
     bgColor: "black",
-    textColor: HEXCode,
+    textColor: finalColor,
   });
   res.send(dataUri);
 });
