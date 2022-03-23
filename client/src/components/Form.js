@@ -63,7 +63,6 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setQuote("")
 
     const colorPicked = hslToHex();
     axios
