@@ -34,7 +34,7 @@ app.post("/api", async (req, res) => {
     verticalAlign: "center",
     maxWidth: 1000,
     customHeight: 500,
-    fontSize: 18,
+    fontSize: 22,
     fontFamily: "Arial",
     lineHeight: 30,
     margin: 5,
