@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const textToImage = require("text-to-image");
+var convert = require('color-convert');
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -17,7 +18,14 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/api", async (req, res) => {
-  const { colorPicked, quote } = req.body;
+  const { color, quote } = req.body;
+  const hue = color.hue;
+  const saturation = color.saturation * 100
+  const brightness = color.brightness * 100
+  const alpha = color.alpha;
+  const HSBtoHEX = convert.hsv.hex(hue, saturation, brightness, alpha)
+  const HEXCode = `#${HSBtoHEX}`
+
   const dataUri = await textToImage.generate(quote, {
     debug: true,
     textAlign: "center",
@@ -29,7 +37,7 @@ app.post("/api", async (req, res) => {
     lineHeight: 30,
     margin: 5,
     bgColor: "black",
-    textColor: colorPicked,
+    textColor: HEXCode,
   });
   res.send(dataUri);
 });
