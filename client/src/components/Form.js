@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { TextField, ColorPicker, Button } from "@shopify/polaris";
+import React, { useState, useCallback, useEffect } from "react";
+import { TextField, ColorPicker } from "@shopify/polaris";
 import axios from "axios";
 import QuoteImage from "./QuoteImage";
 import Footer from "./Footer";
@@ -17,26 +17,29 @@ const Form = () => {
     alpha: 0.7,
   });
 
-  const handleChange = (e) => {
-    const val = e.target.value;
-
+  const handleSubmit = () => {
     axios
-      .post("/api", {
-        quote: val,
+      .post("http://localhost:5000/post", {
+        quote: quote,
         color,
       })
       .then((response) => {
+        // console.log(response.data);
+        console.log(color);
         setreceivedData(response.data);
       })
       .catch((error) => [console.log(error)]);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+
+  useEffect(() => {
+    if (quote.length > 0) {
+      handleSubmit();
+    }
+  }, [color, quote]);
 
   return (
     <>
-      <form onSubmit={handleSubmit} onChange={handleChange}>
+      <form onSubmit={handleSubmit}>
         <div className="inputContainer">
           <TextField
             name="quote"
@@ -51,9 +54,6 @@ const Form = () => {
         <div className="colorPickerContainer">
           <ColorPicker onChange={setColor} color={color} allowAlpha />
         </div>
-        {/* <div className="submitButton">
-          <Button onClick={handleSubmit}>Submit</Button>
-        </div> */}
       </form>
       {receivedData && <QuoteImage src={receivedData} />}
       <Footer />
