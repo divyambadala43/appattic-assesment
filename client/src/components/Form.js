@@ -17,25 +17,26 @@ const Form = () => {
     alpha: 0.7,
   });
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    const val = e.target.value;
 
     axios
       .post("/api", {
-        quote,
+        quote: val,
         color,
       })
       .then((response) => {
-        console.log(response.data);
         setreceivedData(response.data);
       })
       .catch((error) => [console.log(error)]);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onChange={handleChange}>
         <div className="inputContainer">
           <TextField
             name="quote"
@@ -50,9 +51,9 @@ const Form = () => {
         <div className="colorPickerContainer">
           <ColorPicker onChange={setColor} color={color} allowAlpha />
         </div>
-        <div className="submitButton">
+        {/* <div className="submitButton">
           <Button onClick={handleSubmit}>Submit</Button>
-        </div>
+        </div> */}
       </form>
       {receivedData && <QuoteImage src={receivedData} />}
       <Footer />
