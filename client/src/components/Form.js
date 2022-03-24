@@ -24,8 +24,6 @@ const Form = () => {
         color,
       })
       .then((response) => {
-        // console.log(response.data);
-        console.log(color);
         setreceivedData(response.data);
       })
       .catch((error) => [console.log(error)]);
