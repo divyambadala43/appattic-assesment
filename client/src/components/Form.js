@@ -19,7 +19,7 @@ const Form = () => {
 
   const handleSubmit = () => {
     axios
-      .post("http://localhost:5000/post", {
+      .post("/api", {
         quote: quote,
         color,
       })
